@@ -1,0 +1,40 @@
+{
+  "name": "inject-object",
+  "version": "1.0.0",
+  "description": "Inject object members to another object",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha --report lcovonly"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/retorillo/inject-object.git"
+  },
+  "keywords": [
+    "object",
+    "inject",
+    "replace",
+    "merge"
+  ],
+  "author": "retorillo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/retorillo/inject-object/issues"
+  },
+  "homepage": "https://github.com/retorillo/inject-object#readme",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "dependencies": {
+    "deep-key": "^0.9.9"
+  },
+  "devDependencies": {
+    "coveralls": "^2.13.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "should": "^11.2.1"
+  }
+}
