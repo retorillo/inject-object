@@ -1,5 +1,11 @@
 # inject-object
 
+[![Build Status](https://travis-ci.org/retorillo/inject-object.svg?branch=master)](https://travis-ci.org/retorillo/inject-object)
+[![Coverage Status](https://coveralls.io/repos/github/retorillo/inject-object/badge.svg?branch=master)](https://coveralls.io/github/retorillo/inject-object?branch=master)
+[![Dependency Status](https://gemnasium.com/badges/github.com/retorillo/inject-object.svg)](https://gemnasium.com/github.com/retorillo/inject-object)
+[![NPM](https://img.shields.io/npm/v/inject-object.svg)](https://www.npmjs.com/package/inject-object)
+[![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 Inject object members to another object.
 
 ```javascript
