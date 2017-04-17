@@ -44,6 +44,12 @@ var testCases = [
     c: { a: { b: 'c', d: { e: 'd' } }, f: 'g', h: { i: 'j' } }, 
     d: { a: 'b', f: undefined },
   },
+  { 
+    a: { a: { b: 0, c: 1 } }, 
+    b: { a: { d: 2, e: 3 } }, 
+    c: { a: { b: 0, c: 1, d: 2, e: 3 } }, 
+    d: { a: { d: undefined, e: undefined } },
+  },
 ]
 
 // exactStringify from https://github.com/retorillo/deep-key (125ced8)
@@ -70,9 +76,12 @@ describe('Injection' , function() {
   for (let test of testCases) {
     context(`${exactStringify(test.a)} <= ${exactStringify(test.b)}`,
       function() {
-        let d = inject(test.a, test.b);
-        let astr = exactStringify(test.a);
-        let dstr = exactStringify(d);
+        let d, astr, dstr;
+        before(function() {
+          d = inject(test.a, test.b);
+          astr = exactStringify(test.a);
+          dstr = exactStringify(d);
+        });
         it(`Should be ${exactStringify(test.c)}`, function() {
           should(astr).eql(exactStringify(test.c));
         });
@@ -86,8 +95,11 @@ describe('Restoration' , function() {
   for (let test of testCases) {
     context(`${exactStringify(test.a)} <=> ${exactStringify(test.b)}`,
       function() {
-        let a = JSON.parse(JSON.stringify(test.a));
-        let d = inject(a, test.b);
+        let a, d;
+        before(function() {
+          a = JSON.parse(JSON.stringify(test.a));
+          d = inject(a, test.b);
+        });
         inject(a, d);
         it(`Should restore to ${exactStringify(test.a)}`, function() {
           should(a).eql(test.a);
