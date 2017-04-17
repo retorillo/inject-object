@@ -1,7 +1,7 @@
 {
   "name": "inject-object",
-  "version": "1.0.0",
-  "description": "Inject object members to another object",
+  "version": "1.0.1",
+  "description": "Inject object members into another object",
   "main": "index.js",
   "directories": {
     "test": "test"

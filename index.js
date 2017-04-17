@@ -4,28 +4,40 @@ function enumLeafsDescendingly(obj) {
   return deepkey.keys(obj, { leaf: true, noindex: true })
     .sort((l, r) => r.length - l.length);
 }
-function findPresentAncestorOrRoot(obj, key) {
+function findPresentAncestor(obj, key) {
   var k = key.slice();
-  while (k.length > 1 && !deepkey.exists(obj, k))
+  while (k.length > 0 && !deepkey.exists(obj, k))
     k.splice(-1);
   return k;
+}
+function injectable(obj, key, solver) {
+  var k = findPresentAncestor(obj, key);
+  var i = k.length === 0 || Object.isExtensible(deepkey.get(obj, k));
+  if (solver && !i)
+    solver(obj, k, deepkey.get(obj, k));
+  return i;
 }
 module.exports = function(a, b) {
   var c = {};
   var keypairs = enumLeafsDescendingly(b)
-    .map(k => [ k, findPresentAncestorOrRoot(a, k) ]);
+    .map(k => [ k, findPresentAncestor(a, k) ]);
   for (pair of keypairs) {
-    if (!deepkey.exists(c, pair[1])) {
-      var v1 = deepkey.get(a, pair[1]);
-      deepkey.set(c, pair[1], v1);
-      if (!Object.isExtensible(v1))
-        deepkey.delete(a, pair[1]);
+    if (injectable(c, pair[0])) {
+      if (pair[0].length === pair[1].length)
+        deepkey.set(c, pair[0], deepkey.get(a, pair[0]));
+      else
+        deepkey.set(c, pair[0], undefined);
     }
-    var v2 = deepkey.get(b, pair[0]);
-    if (v2 === undefined)
+    var v = deepkey.get(b, pair[0]);
+    if (v === undefined)
       deepkey.delete(a, pair[0]);
-    else
-      deepkey.set(a, pair[0], v2);
+    else {
+      injectable(a, pair[0], (o, k, v) => {
+        deepkey.delete(o, k);
+        deepkey.set(c, k, v);
+      });
+      deepkey.set(a, pair[0], v);
+    }
   }
   return c;
 }

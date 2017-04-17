@@ -6,7 +6,7 @@
 [![NPM](https://img.shields.io/npm/v/inject-object.svg)](https://www.npmjs.com/package/inject-object)
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-Inject object members to another object.
+Inject object members into another object.
 
 ```javascript
 const inject = require('inject-object');
